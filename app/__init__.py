@@ -17,7 +17,8 @@ def create_app():
     # Connect to MongoDB
     global mongo
     client = MongoClient(Config.MONGO_URI)
-    mongo = client.get_default_database()
+    mongo = client
+    mongo.db = client.get_default_database()
 
     # Initialize JWT with app
     jwt.init_app(app)

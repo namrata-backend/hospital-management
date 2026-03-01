@@ -1,0 +1,6 @@
+from app import create_app
+
+app = create_app()
+
+print("App created successfully!")
+app.run(debug=True)

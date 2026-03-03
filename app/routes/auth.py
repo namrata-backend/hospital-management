@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import create_access_token
 from app.models.user import UserModel
+import json
 
 auth_bp = Blueprint("auth", __name__)
 
@@ -58,11 +59,13 @@ def login():
         return jsonify({"error": "Invalid email or password"}), 401
 
     # Create JWT token
-    access_token = create_access_token(identity={
+    access_token = create_access_token(
+    identity=json.dumps({
         "user_id": str(user["_id"]),
         "role": user["role"],
         "name": user["name"]
     })
+)
 
     return jsonify({
         "access_token": access_token,
